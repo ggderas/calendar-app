@@ -37,11 +37,9 @@ class Calendar extends Component {
 
         }
 
-        let 
+        let
             monthName = moment(days[0].exactDate).add(1, 'months').format('MMMM'),
             year = moment(days[0].exactDate).add(1, 'months').format('YYYY');
-
-            console.log("year", year);
 
 
         return (

@@ -63,7 +63,6 @@ class MainContainer extends Component {
         }
 
         Holidays.getHolidays(year, countryCode).then((result) => {
-            console.log("result", result);
             this.setState({calendars: calendars});
         })
     }

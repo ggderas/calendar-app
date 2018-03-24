@@ -10,14 +10,13 @@ var getHolidays = (year, countryCode) => {
 
 
         let url = HOLIDAY_API + "country=" + countryCode + "&year=" + year;
-        console.log("url", url);
-        //console.log("axios", axios);
 
         $.get({
             url: url,
             type: "GET",
             succes: function(response) {
-                console.log("respopnse", response);
+              //TODO: Treat response as suitable for this app
+              resolve(response);
             }
         });
     })

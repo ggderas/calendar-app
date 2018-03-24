@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import '../App.css';
+import Day from './Day';
 import moment from 'moment';
 
 class Calendar extends Component {
@@ -66,19 +67,11 @@ class Calendar extends Component {
 
 
                     <ul className="days">
-                        <li>1</li>
-                        <li>1</li>
-                        <li>1</li>
-                        <li>1</li>
-                        <li>1</li>
-                        <li>1</li>
-                        <li>1</li>
-                        <li>1</li>
-                        <li>1</li>
-                        <li>1</li>
-                        <li>1</li>
-                        <li>1</li>
-                        <li>1</li>
+                        {
+                            days.map((item, index) => {
+                                return <Day numberOfDays={this.props.numberOfDaysToFill} startDate={this.props.startDate} index={index} exactDate={item.exactDate} isFromSameMonth={item.isFromSameMonth} />
+                            })
+                        }
                     </ul>
                 </div>
             </div>

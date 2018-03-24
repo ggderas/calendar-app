@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import '../App.css';
 import Calendar from './Calendar';
 import moment from 'moment';
+import Holidays from '../datasources/holidays-ds';
 
 class MainContainer extends Component {
 
@@ -12,21 +13,25 @@ class MainContainer extends Component {
             countryCode: ''
         },
         calendars: []
-    }   
+    }
 
     handleAnyChange(){
 
-        let 
+        let
             numberOfDays = this.state.inputs.numberOfDays,
             startDate = this.state.inputs.startDate,
             countryCode = this.state.inputs.countryCode,
             date = moment(startDate),
             year = moment(startDate).format("YYYY");
 
-        if(numberOfDays <= 0)
-            return;
+        if(numberOfDays <= 0 || startDate === null || startDate === '')
+        {
+          this.setState({calendars: []})
+          return;
+        }
 
-        let 
+
+        let
             calendars = [],
             imTryingToFindHowManyCalendarsINeed = true,
             currentDate = date,
@@ -54,10 +59,13 @@ class MainContainer extends Component {
             }
 
             calendarDayCounter++;
-            totalCounter++;             
+            totalCounter++;
         }
 
-        this.setState({calendars: calendars});
+        Holidays.getHolidays(year, countryCode).then((result) => {
+            console.log("result", result);
+            this.setState({calendars: calendars});
+        })
     }
 
     render() {
@@ -68,7 +76,7 @@ class MainContainer extends Component {
                 <input type="date" value={this.state.inputs.startDate} onChange={(e) => {
                     let inputs = this.state.inputs;
                     inputs.startDate = e.target.value;
-                    this.setState({inputs:inputs})                    
+                    this.setState({inputs:inputs})
                     this.handleAnyChange();
                 }} />
             </div>
@@ -78,10 +86,10 @@ class MainContainer extends Component {
                 <input type="number" value={this.state.inputs.numberOfDays} onChange={(e) => {
                     let inputs = this.state.inputs;
                     inputs.numberOfDays = parseInt(e.target.value);
-                    this.setState({inputs:inputs})                    
+                    this.setState({inputs:inputs})
                     this.handleAnyChange();
-                }} />                
-            </div> 
+                }} />
+            </div>
 
             <div>
                 <label>Country Code</label>
@@ -91,18 +99,18 @@ class MainContainer extends Component {
                     this.setState({inputs:inputs});
                     this.handleAnyChange();
                 }} />
-            </div>         
+            </div>
 
             <div className="container">
             {
                 this.state.calendars.map((item, index) => {
                     return (
                         <div className="col-sm-6">
-                            <Calendar key={index} startDate={item.startDate} numberOfDaysToFill={item.numberOfDaysToFill}/>  
-                            <br/>                             
+                            <Calendar key={index} startDate={item.startDate} numberOfDaysToFill={item.numberOfDaysToFill}/>
+                            <br/>
                         </div>
                     )
-                })                
+                })
             }
             </div>
 

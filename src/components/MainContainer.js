@@ -104,8 +104,8 @@ class MainContainer extends Component {
             {
                 this.state.calendars.map((item, index) => {
                     return (
-                        <div className="col-sm-6">
-                            <Calendar key={index} startDate={item.startDate} numberOfDaysToFill={item.numberOfDaysToFill}/>
+                        <div className="col-sm-6" key={index}>
+                            <Calendar  startDate={item.startDate} numberOfDaysToFill={item.numberOfDaysToFill}/>
                             <br/>
                         </div>
                     )

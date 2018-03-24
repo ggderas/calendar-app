@@ -67,7 +67,7 @@ class Calendar extends Component {
                     <ul className="days">
                         {
                             days.map((item, index) => {
-                                return <Day numberOfDays={this.props.numberOfDaysToFill} startDate={this.props.startDate} index={index} exactDate={item.exactDate} isFromSameMonth={item.isFromSameMonth} />
+                                return <Day key={index} numberOfDays={this.props.numberOfDaysToFill} startDate={this.props.startDate} index={index} exactDate={item.exactDate} isFromSameMonth={item.isFromSameMonth} />
                             })
                         }
                     </ul>
